@@ -3,14 +3,25 @@
   "version": "1.0.0",
   "description": "get the current executing script, with polyfills for IE9+ and Firefox",
   "main": "currentScript.js",
-  "scripts": {},
+  "scripts": {
+    "start-server": "serve .",
+    "test:e2e": "nightwatch -e chrome,firefox -t test.js",
+    "test": "start-server-and-test start-server http://localhost:5000 test:e2e"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sodatea/get-current-script.git"
   },
-  "author": "Adam Miller",
+  "author": "Haoqun Jiang",
   "license": "MIT",
   "readmeFilename": "README.md",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "chromedriver": "^80.0.1",
+    "geckodriver": "^1.19.1",
+    "nightwatch": "^1.3.4",
+    "selenium-server": "^3.141.59",
+    "serve": "^11.3.0",
+    "start-server-and-test": "^1.10.8"
+  }
 }
