@@ -72,11 +72,12 @@ module.exports = {
       },
       webdriver: {
         start_process: true,
-        port: 4444,
+        port: 5555,
         server_path: (Services.geckodriver ? Services.geckodriver.path : ''),
         cli_args: [
           // very verbose geckodriver logs
           // '-vv'
+          '--port=5555'
         ]
       }
     },
@@ -107,69 +108,6 @@ module.exports = {
       }
     },
 
-    //////////////////////////////////////////////////////////////////////////////////
-    // Configuration for when using the browserstack.com cloud service               |
-    //                                                                               |
-    // Please set the username and access key by setting the environment variables:  |
-    // - BROWSERSTACK_USER                                                           |
-    // - BROWSERSTACK_KEY                                                            |
-    // .env files are supported                                                      |
-    //////////////////////////////////////////////////////////////////////////////////
-    browserstack: {
-      selenium: {
-        host: 'hub-cloud.browserstack.com',
-        port: 443
-      },
-      // More info on configuring capabilities can be found on:
-      // https://www.browserstack.com/automate/capabilities?tag=selenium-4
-      desiredCapabilities: {
-        'bstack:options' : {
-          local: 'false',
-          userName: '${BROWSERSTACK_USER}',
-          accessKey: '${BROWSERSTACK_KEY}',
-        }
-      },
-
-      disable_error_log: true,
-      webdriver: {
-        keep_alive: true,
-        start_process: false
-      }
-    },
-
-    'browserstack.chrome': {
-      extends: 'browserstack',
-      desiredCapabilities: {
-        browserName: 'chrome',
-        chromeOptions : {
-          // This tells Chromedriver to run using the legacy JSONWire protocol
-          // More info on Chromedriver: https://sites.google.com/a/chromium.org/chromedriver/
-          w3c: false
-        }
-      }
-    },
-
-    'browserstack.firefox': {
-      extends: 'browserstack',
-      desiredCapabilities: {
-        browserName: 'firefox'
-      }
-    },
-
-    'browserstack.ie': {
-      extends: 'browserstack',
-      desiredCapabilities: {
-        browserName: 'IE',
-        browserVersion: '11.0',
-        'bstack:options' : {
-          os: 'Windows',
-          osVersion: '10',
-          local: 'false',
-          seleniumVersion: '3.5.2',
-          resolution: '1366x768'
-        }
-      }
-    },
 
     //////////////////////////////////////////////////////////////////////////////////
     // Configuration for when using the Selenium service, either locally or remote,  |
@@ -183,7 +121,8 @@ module.exports = {
         server_path: (Services.seleniumServer ? Services.seleniumServer.path : ''),
         cli_args: {
           'webdriver.gecko.driver': (Services.geckodriver ? Services.geckodriver.path : ''),
-          'webdriver.chrome.driver': (Services.chromedriver ? Services.chromedriver.path : '')
+          'webdriver.chrome.driver': (Services.chromedriver ? Services.chromedriver.path : ''),
+          'webdriver.ie.driver': (Services.iedriver ? Services.iedriver.path : '')
         }
       }
     },
@@ -209,7 +148,14 @@ module.exports = {
           ]
         }
       }
-    }
+    },
+
+    'ie': {
+      extends: 'selenium',
+      desiredCapabilities: {
+        browserName: 'internet explorer'
+      }
+    },
   }
 };
 
@@ -224,5 +170,9 @@ function loadServices() {
 
   try {
     Services.geckodriver = require('geckodriver');
+  } catch (err) {}
+
+  try {
+    Services.iedriver = require('iedriver');
   } catch (err) {}
 }
