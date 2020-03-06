@@ -19,17 +19,16 @@
     }
   
     // IE 8-10 support script readyState
-    // IE 11+ support stack trace
-    // Firefox supports err.fileName
+    // IE 11+ & Firefox support stack trace
     try {
       throw new Error();
     }
     catch (err) {
       // Find the second match for the "at" string to get file src url from stack.
-      // Specifically works with the format of stack traces in IE.
-      var i = 0,
-        stackDetails = (/.*at [^(]*\((.*):(.+):(.+)\)$/ig).exec(err.stack),
-        scriptLocation = err.fileName || (stackDetails && stackDetails[1]) || false,
+      var ieStackRegExp = /.*at [^(]*\((.*):(.+):(.+)\)$/ig,
+        ffStackRegExp = /@([^@]*):(\d+):(\d+)\s*$/ig,
+        stackDetails = ieStackRegExp.exec(err.stack) || ffStackRegExp.exec(err.stack),
+        scriptLocation = (stackDetails && stackDetails[1]) || false,
         line = (stackDetails && stackDetails[2]) || false,
         currentLocation = document.location.href.replace(document.location.hash, ''),
         pageSource,
@@ -37,13 +36,14 @@
         inlineScriptSource,
         scripts = document.getElementsByTagName('script'); // Live NodeList collection
   
+        console.log(err.stack)
       if (scriptLocation === currentLocation) {
         pageSource = document.documentElement.outerHTML;
         inlineScriptSourceRegExp = new RegExp('(?:[^\\n]+?\\n){0,' + (line - 2) + '}[^<]*<script>([\\d\\D]*?)<\\/script>[\\d\\D]*', 'i');
         inlineScriptSource = pageSource.replace(inlineScriptSourceRegExp, '$1').trim();
       }
   
-      for (; i < scripts.length; i++) {
+      for (var i = 0; i < scripts.length; i++) {
         // If ready state is interactive, return the script tag
         if (scripts[i].readyState === 'interactive') {
           return scripts[i];
