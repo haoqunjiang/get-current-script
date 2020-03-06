@@ -5,8 +5,8 @@
   "main": "currentScript.js",
   "scripts": {
     "start-server": "serve .",
-    "test:e2e": "nightwatch -e chrome,firefox -t test.js",
-    "test": "start-server-and-test start-server http://localhost:5000 test:e2e"
+    "test": "nightwatch -e chrome,firefox -t test.js",
+    "ci": "start-server-and-test start-server http://localhost:5000 test"
   },
   "repository": {
     "type": "git",
