@@ -31,5 +31,6 @@ jobs:
       run: yarn --frozen-lockfile
 
     # Runs a set of commands using the runners shell
+    # As there seems to be issues like "socket hang up" in the github actions environment when testing all browsers altogether, I run the browser tests sequentially in the ci script
     - name: Run the test
       run: yarn ci
