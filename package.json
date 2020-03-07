@@ -4,9 +4,14 @@
   "description": "get the current executing script, with polyfills for IE9+ and Firefox",
   "main": "currentScript.js",
   "scripts": {
-    "start-server": "serve .",
-    "test": "nightwatch -e ie,chrome,firefox -t test.js",
-    "ci": "start-server-and-test start-server http://localhost:5000 test"
+    "start": "serve .",
+    "test:chrome": "nightwatch -t test.js -e chrome",
+    "test:firefox": "nightwatch -t test.js -e firefox",
+    "test:ie": "nightwatch -t test.js -e ie",
+    "ci:chrome": "yarn start-test start http://localhost:5000 test:chrome",
+    "ci:firefox": "yarn start-test start http://localhost:5000 test:firefox",
+    "ci:ie": "yarn start-test start http://localhost:5000 test:ie",
+    "ci": "yarn ci:chrome && yarn ci:firefox && yarn ci:ie"
   },
   "repository": {
     "type": "git",
