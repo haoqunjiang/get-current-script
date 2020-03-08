@@ -6,11 +6,11 @@
 
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
-      define([], factory);
+    define([], factory);
   } else if (typeof module === 'object' && module.exports) {
-      module.exports = factory();
+    module.exports = factory();
   } else {
-      root.getCurrentScript = factory();
+    root.getCurrentScript = factory();
   }
 }(typeof self !== 'undefined' ? self : this, function () {
   function getCurrentScript () {
@@ -36,7 +36,6 @@
         inlineScriptSource,
         scripts = document.getElementsByTagName('script'); // Live NodeList collection
   
-        console.log(err.stack)
       if (scriptLocation === currentLocation) {
         pageSource = document.documentElement.outerHTML;
         inlineScriptSourceRegExp = new RegExp('(?:[^\\n]+?\\n){0,' + (line - 2) + '}[^<]*<script>([\\d\\D]*?)<\\/script>[\\d\\D]*', 'i');
