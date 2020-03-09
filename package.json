@@ -2,7 +2,7 @@
   "name": "@soda/get-current-script",
   "version": "1.0.0",
   "description": "get the current executing script, with polyfills for IE9+ and Firefox",
-  "main": "currentScript.js",
+  "main": "index.js",
   "scripts": {
     "start": "serve .",
     "test:chrome": "nightwatch -t test.js -e chrome",
