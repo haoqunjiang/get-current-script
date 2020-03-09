@@ -19,7 +19,6 @@
   },
   "author": "Haoqun Jiang",
   "license": "MIT",
-  "readmeFilename": "README.md",
   "dependencies": {},
   "devDependencies": {
     "chromedriver": "^80.0.1",
@@ -29,5 +28,8 @@
     "selenium-server": "^3.141.59",
     "serve": "^11.3.0",
     "start-server-and-test": "^1.10.8"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
