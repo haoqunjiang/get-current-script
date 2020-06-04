@@ -1,5 +1,5 @@
-if (!'currentScript' in document) {
-  Object.defineProperty(document, 'currentScript', window.getCurrentScript)
+if (!('currentScript' in document)) {
+  Object.defineProperty(document, 'currentScript', { get: window.getCurrentScript })
 }
 
 if (document.currentScript) {
