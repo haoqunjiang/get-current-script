@@ -14,7 +14,8 @@
   }
 }(typeof self !== 'undefined' ? self : this, function () {
   function getCurrentScript () {
-    if (document.currentScript) {
+    const descriptor = Object.getOwnPropertyDescriptor(document, 'currentScript')
+    if (descriptor && descriptor.get !== getCurrentScript) {
       return document.currentScript
     }
   
