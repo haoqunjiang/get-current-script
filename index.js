@@ -16,12 +16,12 @@
   function getCurrentScript () {
     const descriptor = Object.getOwnPropertyDescriptor(document, 'currentScript')
     // for chrome
-    if (!descriptor && 'currentScript' in document) {
+    if (!descriptor && 'currentScript' in document && document.currentScript) {
       return document.currentScript
     }
 
     // for other browsers with native support for currentScript
-    if (descriptor && descriptor.get !== getCurrentScript) {
+    if (descriptor && descriptor.get !== getCurrentScript && document.currentScript) {
       return document.currentScript
     }
   
