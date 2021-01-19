@@ -77,8 +77,8 @@ module.exports = {
         cli_args: [
           // very verbose geckodriver logs
           // '-vv'
-          '--port',
-          '5555'
+          // '--port',
+          // '5555'
         ]
       }
     },
